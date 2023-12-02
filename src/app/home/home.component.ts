@@ -1,4 +1,4 @@
-import { Component,Inject, OnInit, OnDestroy } from '@angular/core';
+import { Component, OnInit, OnDestroy } from '@angular/core';
 import { Character } from './Character';
 import { HttpServiceService } from '../http-service.service';
 import { logs } from './logs';
@@ -21,10 +21,10 @@ export class HomeComponent implements OnInit,OnDestroy
   public lgs:logs[]=[];
   modalRef: MdbModalRef<PopUpComponent> | null = null;
   suscription:Subscription = new Subscription();
-  
+
   constructor(private service: HttpServiceService,
     private modalService: MdbModalService ) { }
-  
+
 
   openModal(id:number,name:string) {
       this.modalRef = this.modalService.open(PopUpComponent, {
@@ -39,20 +39,20 @@ export class HomeComponent implements OnInit,OnDestroy
   ngOnInit(): void {
     this.getCharacters();
     this.getLogs();
- 
+
   }
 
   getCharacters() {
     this.service.getCharactersMarvel().subscribe((res) => {
      this.characters = res;
-        
+
       this.suscription = this.service.logs$.subscribe(()=>{
         this.getLogs();
       });
     }, () => {});
   }
 
-  
+
   getLogs() {
     this.service.getLogs().subscribe((res) => {
       this.lgs=res;

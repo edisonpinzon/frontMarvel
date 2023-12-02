@@ -1,4 +1,4 @@
-import { Component, Inject, OnDestroy } from '@angular/core';
+import { Component, OnDestroy } from '@angular/core';
 import { HttpServiceService } from '../../http-service.service';
 import { MdbModalRef } from 'mdb-angular-ui-kit/modal';
 import { logs } from '../logs';
@@ -21,7 +21,7 @@ export class PopUpComponent implements OnDestroy{
   constructor(private service: HttpServiceService,
     public modalRef: MdbModalRef<PopUpComponent>) {
   }
- 
+
   ngOnInit(): void {
     if (this.id != null) {
       this.service.getCharactersById(Number(this.id)).subscribe((res) => {
@@ -44,7 +44,7 @@ export class PopUpComponent implements OnDestroy{
     const closeMessage = 'Modal closed';
     this.modalRef.close(closeMessage)
   }
-  
+
   ngOnDestroy(): void {
     this.suscription.unsubscribe();
   }
